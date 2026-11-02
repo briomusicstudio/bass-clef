@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1c0b3d">
+<title>Басовий ключ — Brio Music Studio</title>
+<style>
+:root{--bg:#0f0620;--bg2:#1c0b3d;--lil:#a58bff;--sun:#dbd65c;--ink:#f3eeff;--mu:#b7acd6;--card:rgba(255,255,255,.07);--ln:rgba(255,255,255,.16);--ok:#2fbf71;--no:#e5484d}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;display:flex;flex-direction:column;color:var(--ink);font:500 16px/1.5 Manrope,"Segoe UI",system-ui,sans-serif;background:radial-gradient(900px 600px at 85% 105%,rgba(219,214,92,.22),transparent 60%),radial-gradient(800px 700px at 5% -10%,#5614b0,transparent 60%),linear-gradient(180deg,var(--bg2),var(--bg)) fixed}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px clamp(14px,3vw,40px);border-bottom:1px solid var(--ln);background:rgba(15,6,32,.72);backdrop-filter:blur(12px)}
+.top>img{height:44px}
+nav{display:flex;gap:4px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+nav button{border:0;background:none;padding:9px 15px;border-radius:99px;font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--mu)}
+nav button.on{background:var(--sun);color:#1b1038;box-shadow:0 8px 24px rgba(219,214,92,.3)}
+.lang,.vol{display:flex;align-items:center;border:1px solid var(--ln);border-radius:99px;padding:3px}
+.lang button{border:0;background:none;padding:5px 11px;border-radius:99px;font-weight:800;font-size:12px;color:var(--mu)}
+.lang .on{background:var(--ink);color:var(--bg)}
+.vol{gap:8px;padding:5px 12px}
+input[type=range]{width:90px;accent-color:var(--sun)}
+main{flex:1;padding:clamp(18px,4vw,48px) clamp(14px,5vw,64px)}
+.hero{position:relative;display:block;max-width:1380px;margin:0 auto}
+.hero>div:first-child{position:relative;z-index:1}
+h1{font-size:clamp(46px,8vw,104px);line-height:.95;font-weight:800;letter-spacing:-.035em;text-transform:uppercase;background:linear-gradient(90deg,#fff,var(--lil) 60%,var(--sun));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:22px}
+.hero p{color:var(--mu);font-size:18px;max-width:640px;margin-bottom:14px}
+.kbc{position:relative;width:100%;margin:48px 0 46px;padding:0 0 38px}
+.kbc svg{width:100%;display:block;overflow:visible}
+.kbc .key-active{filter:drop-shadow(0 0 5px rgba(255,225,112,.8))}
+.kbc .black-active{filter:drop-shadow(0 0 5px rgba(183,149,255,.8))}
+.key-label{position:absolute;top:calc(100% - 30px);display:inline-flex;align-items:center;gap:7px;max-width:48%;padding:7px 12px;border:1px solid;border-radius:999px;font-size:clamp(9px,1vw,12px);line-height:1.2;font-weight:800;letter-spacing:.045em;text-transform:uppercase;white-space:nowrap;box-shadow:0 5px 18px rgba(0,0,0,.22)}
+.key-label::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor;flex:none}
+.key-label::after{position:absolute;bottom:calc(100% + 1px);left:0;width:2px;height:22px;border-radius:2px;background:currentColor;box-shadow:0 0 9px currentColor;content:""}
+.key-label.start{color:var(--sun);background:rgba(219,214,92,.14);border-color:rgba(219,214,92,.55)}
+.key-label.end{transform:translateX(-100%);color:var(--lil);background:rgba(165,139,255,.16);border-color:rgba(165,139,255,.55)}
+.cta{border:0;border-radius:99px;padding:16px 30px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;background:var(--sun);color:#1b1038;box-shadow:0 10px 40px rgba(219,214,92,.35)}
+.glow{position:absolute;top:-40px;right:2%;z-index:0;width:min(22vw,280px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(165,139,255,.28),rgba(86,20,176,.1) 65%,transparent 70%);pointer-events:none}
+.glow img{width:56%;filter:drop-shadow(0 0 30px rgba(165,139,255,.6))}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1180px;margin:70px auto 0}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:28px;padding:22px;backdrop-filter:blur(10px)}
+.gc{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.gc h3{font-size:22px;text-transform:uppercase}.gc p{color:var(--mu);flex:1}
+.ic{display:grid;place-items:center;width:56px;height:56px;border-radius:18px;font-size:28px;background:linear-gradient(135deg,#5614b0,#a58bff);flex:none}
+.gc .cta{padding:11px 22px;font-size:13px;box-shadow:none}
+.setup{max-width:800px;margin:0 auto}
+.hd{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.hd h2{font-size:30px;text-transform:uppercase}.hd p{color:var(--mu)}
+fieldset{border:1px solid var(--ln);border-radius:22px;padding:14px;margin-bottom:16px}
+legend{padding:0 10px;font-weight:800;text-transform:uppercase;font-size:13px;letter-spacing:.04em;color:var(--lil)}
+legend small{text-transform:none;color:var(--mu);font-weight:600;letter-spacing:0}
+.tms{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.tms button,.opt{border:1px solid var(--ln);background:rgba(255,255,255,.05);border-radius:16px;padding:14px;font-weight:800}
+.tms .on,.opt.on{background:var(--sun);color:#1b1038;border-color:var(--sun)}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;margin-bottom:10px;text-align:left}
+.opt small{display:block;font-weight:500;opacity:.8}.opt i{font-style:normal;color:#f0a500;white-space:nowrap}
+.go{width:100%;font-size:18px;padding:18px}
+.bar{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;max-width:900px;margin:0 auto 18px;padding:10px 18px;border-radius:99px;background:var(--card);border:1px solid var(--ln);font-weight:800}
+.pill{background:rgba(255,255,255,.1);border-radius:99px;padding:3px 12px}
+.stars{display:flex;gap:2px;background:rgba(0,0,0,.3);border-radius:99px;padding:4px 12px}
+.stars i{font-style:normal;font-size:22px;color:rgba(255,255,255,.22);transition:.3s}.stars i.f{color:var(--sun);text-shadow:0 0 12px rgba(219,214,92,.7)}
+.qt{text-align:center;font-size:clamp(22px,3vw,32px);margin:22px 0}
+.two{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;align-items:center;max-width:1100px;margin:0 auto}
+.sc{flex:1 1 440px;max-width:600px}
+.stf{width:100%;display:block}
+.stf line{stroke:var(--lil);stroke-width:2;opacity:.85}
+.stf .nt ellipse{fill:var(--ink)}.stf .nt line{stroke:var(--ink);stroke-width:4;opacity:1}.stf .nt text{fill:var(--sun);font:700 34px serif}
+.stf .ok ellipse{fill:var(--ok)}.stf .no ellipse{fill:var(--no)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1 1 300px;max-width:420px}
+.opts button,.lt{border:1px solid var(--ln);background:var(--card);border-radius:18px;padding:18px 8px;font-size:20px;font-weight:800;text-transform:uppercase}
+.opts button:hover,.lt:hover{background:rgba(255,255,255,.16)}
+.ok{background:var(--ok)!important;border-color:var(--ok)!important}.no{background:var(--no)!important;border-color:var(--no)!important}
+.drop{text-align:center}.drop small{font-weight:800;text-transform:uppercase;color:var(--mu);letter-spacing:.04em}
+.kbs{display:flex;flex-direction:column;gap:14px;flex:0 1 260px}
+.kb{background:var(--card);border:2px solid var(--ln);border-radius:16px;padding:10px;cursor:grab}
+.kb svg{width:100%;display:block}
+.sl{display:flex;gap:10px;justify-content:center;margin:12px 0}
+.sl span{min-width:64px;padding:10px;border-radius:14px;border:2px dashed var(--ln);text-align:center;font-weight:800;text-transform:uppercase}
+.sl .ok,.sl .no{border-style:solid}
+.ml{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.ml .lt{padding:12px 16px;font-size:17px}.ml .on{background:var(--sun);color:#1b1038}
+.fix{text-align:center;color:var(--sun);min-height:24px;font-weight:800}
+.lis{display:block;margin:10px auto 0;border:0;border-radius:99px;padding:13px 26px;font-weight:800;text-transform:uppercase;background:linear-gradient(90deg,#5614b0,#8f6bff)}
+.tc{display:flex;flex-direction:column;gap:18px;flex:0 0 auto;align-items:center}
+.rb{width:100px;height:100px;border-radius:50%;border:4px solid #fff3;font-size:46px;box-shadow:0 8px 24px #0006}
+.end{max-width:620px;margin:0 auto;text-align:center}
+.end .stars{justify-content:center;font-size:1.3em;margin:18px 0}.end h2{font-size:34px}.end p{color:var(--mu);margin-bottom:22px}
+.end .cta{margin:4px}.end .cta.g{background:none;color:var(--ink);border:1px solid var(--ln);box-shadow:none}
+footer{padding:26px 20px;text-align:center;color:var(--mu);font-size:14px;border-top:1px solid var(--ln);background:rgba(0,0,0,.25)}
+footer a{color:var(--ink);margin:0 8px;font-weight:700}
+@media(max-width:820px){.glow{display:none}.kbc{margin:24px 0 42px;padding-bottom:34px}.key-label{gap:4px;padding:6px;font-size:7px}.key-label::before{width:6px;height:6px}.opts button{padding:14px 6px}}
+@media(max-width:480px){.kbc{padding-bottom:64px}.key-label.start{top:calc(100% - 58px)}.key-label.end{top:calc(100% - 31px)}.key-label.end::after{height:50px}}
+</style></head><body>
+<header class="top"><img src="logo.svg" alt="Brio Music Studio"><nav id="nav"></nav>
+<div class="lang" id="lang"><button data-l="uk">UK</button><button data-l="ru">RU</button><button data-l="en">EN</button></div>
+<div class="vol">🔊<input type="range" id="vol" min="0" max="1" step=".05" value=".7" aria-label="Volume"></div></header>
+<main id="app"></main>
+<footer id="foot"></footer>
+<script>
+const L={
+uk:{nav:["Головна","Ноти","Клавіші","Мелодія","Граємо"],title:"Басовий ключ",
+p1:"Басовий ключ (ключ «фа») — музичний знак на нотному стані, який указує, що нота «фа» малої октави розташована на другій зверху лінійці.",
+p2:"Він призначений для запису низьких звуків і охоплює клавіатуру від субконтроктави до малої октави.",
+s:"Початок (субконтроктава)",e:"Кінець (мала октава)",choose:"Обрати гру",
+cards:[["Ноти","Визначте назву ноти за її розташуванням на нотному стані."],["Клавіші","Зіставте ноту на нотному стані з відповідною клавішею фортепіано."],["Мелодія","Визначте назви нот короткої мелодії в порядку їх запису."],["Граємо","Виконайте мелодію на інструменті та позначте результат виконання."]],
+play:"Грати",time:"Час гри",t:["30 с","1 хв","1,5 хв","2 хв","Без таймера"],diff:"Ускладнення",dh:"зірочки показують рівень складності",
+o:[["Режим великої октави","Усі картки містять лише ноти великої октави"],["Додати ноти великої октави","Ноти малої та великої октав чергуються"],["Додати знаки альтерації","Дієзи та бемолі чергуються з основними ступенями"]],
+go:"Почати гру",res:"Результат",q:["Оберіть правильну назву ноти","Знайдіть клавішу, що відповідає ноті","Оберіть назви нот у порядку їх запису","Зіграйте мелодію на інструменті"],
+drop:"Перетягніть клавішу сюди",lis:"Прослухати мелодію",fin:"Гру завершено",m:["Варто повторити матеріал.","Добрий результат.","Відмінний результат!"],again:"Грати знову",menu:"До меню",
+oc:["Субконтроктава","Велика","Мала","Перша"],nm:["До","Ре","Мі","Фа","Соль","Ля","Сі"],
+foot:"© 2026 Мар'яна Вихрист (Mariana Vykhryst). Brio Music Studio. Усі права захищено."},
+ru:{nav:["Главная","Ноты","Клавиши","Мелодия","Играем"],title:"Басовый ключ",
+p1:"Басовый ключ (ключ «фа») — музыкальный знак на нотном стане, указывающий, что нота «фа» малой октавы расположена на второй сверху линейке.",
+p2:"Он предназначен для записи низких звуков и охватывает клавиатуру от субконтроктавы до малой октавы.",
+s:"Начало (субконтроктава)",e:"Конец (малая октава)",choose:"Выбрать игру",
+cards:[["Ноты","Определите название ноты по её положению на нотном стане."],["Клавиши","Сопоставьте ноту на нотном стане с соответствующей клавишей фортепиано."],["Мелодия","Определите названия нот короткой мелодии в порядке их записи."],["Играем","Исполните мелодию на инструменте и отметьте результат исполнения."]],
+play:"Играть",time:"Время игры",t:["30 с","1 мин","1,5 мин","2 мин","Без таймера"],diff:"Усложнение",dh:"звёздочки показывают уровень сложности",
+o:[["Режим большой октавы","Все карточки содержат только ноты большой октавы"],["Добавить ноты большой октавы","Ноты малой и большой октав чередуются"],["Добавить знаки альтерации","Диезы и бемоли чередуются с основными ступенями"]],
+go:"Начать игру",res:"Результат",q:["Выберите правильное название ноты","Найдите клавишу, соответствующую ноте","Выберите названия нот в порядке их записи","Сыграйте мелодию на инструменте"],
+drop:"Перетащите клавишу сюда",lis:"Прослушать мелодию",fin:"Игра завершена",m:["Стоит повторить материал.","Хороший результат.","Отличный результат!"],again:"Играть снова",menu:"В меню",
+oc:["Субконтроктава","Большая","Малая","Первая"],nm:["До","Ре","Ми","Фа","Соль","Ля","Си"],
+foot:"© 2026 Марьяна Вихрист (Mariana Vykhryst). Brio Music Studio. Все права защищены."},
+en:{nav:["Home","Notes","Keys","Melody","Let's play"],title:"Bass clef",
+p1:"The bass clef (F clef) is a musical sign on the staff showing that the note F of the small octave lies on the second line from the top.",
+p2:"It is used to write low sounds and covers the keyboard from the subcontra octave to the small octave.",
+s:"Start (subcontra octave)",e:"End (small octave)",choose:"Choose a game",
+cards:[["Notes","Identify the name of a note by its position on the staff."],["Keys","Match a note on the staff with the corresponding piano key."],["Melody","Identify the names of the notes of a short melody in written order."],["Let's play","Perform the melody on an instrument and mark the result."]],
+play:"Play",time:"Game time",t:["30 s","1 min","1.5 min","2 min","No timer"],diff:"Difficulty",dh:"stars show the level of difficulty",
+o:[["Great octave mode","All cards contain only notes of the great octave"],["Add great octave notes","Notes of the small and great octaves alternate"],["Add accidentals","Sharps and flats alternate with natural notes"]],
+go:"Start the game",res:"Score",q:["Choose the correct name of the note","Find the key that matches the note","Choose the note names in written order","Play the melody on an instrument"],
+drop:"Drag the key here",lis:"Listen to the melody",fin:"Game over",m:["Please review the material.","Good result.","Excellent result!"],again:"Play again",menu:"Back to menu",
+oc:["Subcontra","Great","Small","One-lined"],nm:["C","D","E","F","G","A","B"],
+foot:"© 2026 Mariana Vykhryst. Brio Music Studio. All rights reserved."}};
+const $=s=>document.querySelector(s),R=n=>Math.floor(Math.random()*n),sh=a=>a.sort(()=>Math.random()-.5),PC=[0,2,4,5,7,9,11],IC=["🎵","🎹","🎼","🎸"];
+let lang="uk";try{lang=localStorage.lang||"uk"}catch(e){}
+let V="home",ph="setup",O={time:60,oct:"small",alt:false},G,Q,tid,vol=.7,AC;
+const T=()=>L[lang],nm=(l,a)=>T().nm[l]+(a>0?"♯":a<0?"♭":""),pcOf=n=>(PC[n.pos%7]+n.acc+12)%12,kk=(l,a)=>l+":"+a;
+function tone(n,t0=0){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const f=440*Math.pow(2,(12*(Math.floor(n.pos/7)+1)+PC[n.pos%7]+n.acc-69)/12),t=AC.currentTime+t0,g=AC.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.5*vol,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+1.4);g.connect(AC.destination);[[1,1],[2,.25],[3,.08]].forEach(([m,a])=>{const o=AC.createOscillator(),h=AC.createGain();o.type="sine";o.frequency.value=f*m;h.gain.value=a;o.connect(h);h.connect(g);o.start(t);o.stop(t+1.5)})}catch(e){}}
+const Y=p=>166-(p-18)*12;
+function staff(ns){const x0=ns.length>1?170:340,dx=ns.length>1?390/(ns.length-1):0;let h='<svg class="stf" viewBox="0 0 600 250">';
+for(let i=0;i<5;i++)h+=`<line x1="10" x2="590" y1="${70+i*24}" y2="${70+i*24}"/>`;
+h+='<image href="clef.png" x="14" y="69" width="75" height="89"/>';
+ns.forEach((n,i)=>{const x=x0+i*dx,y=Y(n.pos),up=n.pos<22;
+for(let p=16;p>=n.pos;p-=2)h+=`<line x1="${x-24}" x2="${x+24}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:#f3eeff"/>`;
+for(let p=28;p<=n.pos;p+=2)h+=`<line x1="${x-24}" x2="${x+24}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:#f3eeff"/>`;
+h+=`<g class="nt" id="n${i}"><ellipse cx="${x}" cy="${y}" rx="14" ry="10" transform="rotate(-20 ${x} ${y})"/><line x1="${up?x+13:x-13}" x2="${up?x+13:x-13}" y1="${y}" y2="${up?y-62:y+62}"/>${n.acc?`<text x="${x-40}" y="${y+10}">${n.acc>0?"♯":"♭"}</text>`:""}</g>`});
+return h+"</svg>"}
+const bd=()=>O.oct=="great"?[14,20]:O.oct=="mix"?[14,27]:[21,27];
+function mk(pos){let a=0;if(O.alt&&Math.random()<.5){const l=pos%7,c=[];if([0,1,3,4,5].includes(l))c.push(1);if([1,2,4,5,6].includes(l))c.push(-1);a=c[R(c.length)]}return{pos,acc:a}}
+const rn=()=>{const[a,b]=bd();return mk(a+R(b-a+1))};
+function kbStrip(){let w="",b="";const start=0,end=23;for(let i=0;i<52;i++){const hi=i>=start&&i<end;w+=`<rect class="${hi?"key-active":""}" x="${i*20}" width="20" height="90" rx="1" fill="${hi?"#ffe68a":"#fff"}" stroke="${hi?"#8b6b22":"#2a2146"}" stroke-width="${hi?1.5:1}"/>`}
+for(let i=0;i<51;i++){const hasBlack=i==0||(i>=2&&[0,1,3,4,5].includes((i-2)%7));if(hasBlack){const hi=i>=start&&i<end;b+=`<rect class="${hi?"black-active":""}" x="${(i+1)*20-6}" width="12" height="54" rx="2" fill="${hi?"#39246d":"#1b1038"}" stroke="${hi?"#c8a9ff":"#2a2146"}" stroke-width="${hi?1.4:1}"/>`}}
+return`<svg role="img" aria-label="${T().p2}" viewBox="0 0 1040 90" preserveAspectRatio="none">${w}${b}</svg>`}
+function kb(p){let w="",b="";PC.forEach((c,i)=>w+=`<rect x="${i*34}" width="34" height="90" fill="${c==p?"#dbd65c":"#fff"}" stroke="#2a2146"/>`);
+[1,3,6,8,10].forEach((c,j)=>b+=`<rect x="${([0,1,3,4,5][j]+1)*34-10}" width="20" height="54" fill="${c==p?"#dbd65c":"#1b1038"}" stroke="#2a2146"/>`);return`<svg viewBox="0 0 238 90">${w}${b}</svg>`}
+function nav(){const t=T();$("#nav").innerHTML=t.nav.map((n,i)=>`<button data-a="nav" data-v="${i?i-1:"home"}" class="${(i?i-1:"home")==V?"on":""}">${i?IC[i-1]+" ":""}${n}</button>`).join("");
+document.querySelectorAll("#lang button").forEach(b=>b.classList.toggle("on",b.dataset.l==lang));$("#foot").innerHTML=`${t.foot}<br><a href="https://instagram.com/brio_musicstudio">Instagram</a><a href="https://t.me/briomusicstudio">Telegram</a><a href="https://tiktok.com/@brio_music_studio_">TikTok</a>`;document.documentElement.lang=lang}
+function render(){nav();clearInterval(tid);V=="home"?home():setup();scrollTo(0,0)}
+function home(){const t=T(),keyStart=0,keyEnd=23/52*100;$("#app").innerHTML=`<section class="hero"><div><h1>${t.title}</h1><p>${t.p1}</p><p>${t.p2}</p><div class="kbc">${kbStrip()}<span class="key-label start" style="left:${keyStart}%">${t.s}</span><span class="key-label end" style="left:${keyEnd}%">${t.e}</span></div><button class="cta" data-a="scr">${t.choose} ↓</button></div><div class="glow"><img src="clef.png" alt=""></div></section>
+<section class="grid" id="games">${t.cards.map((c,i)=>`<div class="card gc"><span class="ic">${IC[i]}</span><h3>${c[0]}</h3><p>${c[1]}</p><button class="cta" data-a="nav" data-v="${i}">${t.play}</button></div>`).join("")}</section>`}
+function setup(){const t=T();ph="setup";const op=[["great",1],["mix",2],["alt",3]];
+$("#app").innerHTML=`<div class="card setup"><div class="hd"><span class="ic">${IC[V]}</span><div><h2>${t.cards[V][0]}</h2><p>${t.cards[V][1]}</p></div></div>
+<fieldset><legend>⏱ ${t.time}</legend><div class="tms">${[30,60,90,120,0].map((s,i)=>`<button data-a="t" data-v="${s}" class="${O.time==s?"on":""}">${t.t[i]}</button>`).join("")}</div></fieldset>
+<fieldset><legend>★ ${t.diff} <small>— ${t.dh}</small></legend>${op.map(([k,s],i)=>`<button class="opt ${(k=="alt"?O.alt:O.oct==k)?"on":""}" data-a="o" data-v="${k}"><span><b>${t.o[i][0]}</b><small>${t.o[i][1]}</small></span><i>${"★".repeat(s)}${"☆".repeat(3-s)}</i></button>`).join("")}</fieldset>
+<button class="cta go" data-a="start">▶ ${t.go}</button></div>`}
+function begin(){const t=T();ph="play";G={n:0,s:0,left:O.time,busy:0};clearInterval(tid);
+$("#app").innerHTML=`<div class="bar"><span>${t.res}:</span><span class="pill" id="sc">0/10</span><div class="stars" id="stars">${"<i>★</i>".repeat(10)}</div><span class="pill" id="tm"></span></div><h2 class="qt">${t.q[V]}</h2><div id="st"></div>`;
+tm();if(O.time)tid=setInterval(()=>{G.left--;tm();if(G.left<=0)end()},1000);q()}
+function tm(){$("#tm").textContent=O.time?"⏱ "+Math.floor(G.left/60)+":"+String(G.left%60).padStart(2,"0"):"∞"}
+function ans(ok){if(G.busy)return;G.busy=1;if(ok){G.s++;$("#sc").textContent=G.s+"/10";document.querySelectorAll("#stars i").forEach((e,i)=>e.className=i<G.s?"f":"")}
+setTimeout(()=>{if(ph!="play")return;G.n++;G.busy=0;G.n>=10?end():q()},ok?700:1400)}
+function end(){clearInterval(tid);ph="end";const t=T();$("#app").innerHTML=`<div class="card end"><h2>${t.fin}</h2><div class="stars">${[...Array(10)].map((_,i)=>`<i class="${i<G.s?"f":""}">★</i>`).join("")}</div><p>${t.res}: ${G.s}/10. ${t.m[G.s>=9?2:G.s>=6?1:0]}</p><button class="cta" data-a="start">${t.again}</button><button class="cta g" data-a="nav" data-v="home">${t.menu}</button></div>`}
+const q=()=>[qN,qK,qM,qP][V]();
+function qN(){const n=rn(),a=[{l:n.pos%7,a:n.acc}],s=new Set([kk(a[0].l,a[0].a)]);
+while(a.length<6){const l=R(7),c=O.alt?[-1,0,1][R(3)]:0;if(!s.has(kk(l,c))){s.add(kk(l,c));a.push({l,a:c})}}
+Q={n};$("#st").innerHTML=`<div class="two"><div class="card sc">${staff([n])}</div><div class="opts">${sh(a).map(o=>`<button data-a="ans" data-k="${kk(o.l,o.a)}">${nm(o.l,o.a)}</button>`).join("")}</div></div>`}
+function qK(){const n=rn(),c=pcOf(n),p=O.alt?[...Array(12).keys()]:PC,o=[c];while(o.length<3){const x=p[R(p.length)];if(!o.includes(x))o.push(x)}
+Q={n,o:sh(o)};$("#st").innerHTML=`<div class="two"><div class="card sc drop">${staff([n])}<small>${T().drop}</small></div><div class="kbs">${Q.o.map((p,i)=>`<div class="kb" draggable="true" data-a="kb" data-i="${i}">${kb(p)}</div>`).join("")}</div></div>`}
+function mel(k){const[a,b]=bd();let p=a+R(b-a+1);return[...Array(k)].map(()=>{const r=mk(p);p=Math.max(a,Math.min(b,p+[-2,-1,1,2][R(4)]));return r})}
+function qM(){Q={ns:mel(4),a:[],mod:0};$("#st").innerHTML=`<div class="card sc" style="margin:auto">${staff(Q.ns)}</div><div class="sl" id="sl">${"<span>·</span>".repeat(4)}</div><div class="fix" id="fx"></div><div class="ml">${T().nm.map((n,i)=>`<button class="lt" data-a="ml" data-v="${i}">${n}</button>`).join("")}${O.alt?`<button class="lt" id="m1" data-a="md" data-v="1">♯</button><button class="lt" id="m2" data-a="md" data-v="-1">♭</button>`:""}<button class="lt" data-a="del">⌫</button></div>`}
+function qP(){Q={ns:mel(4)};$("#st").innerHTML=`<div class="two"><div class="card sc">${staff(Q.ns)}<button class="lis" data-a="lis">▶ ${T().lis}</button></div><div class="tc"><button class="rb ok" data-a="yes">✓</button><button class="rb no" data-a="nop">✕</button></div></div>`}
+function pick(i){if(G.busy)return;const ok=Q.o[i]==pcOf(Q.n);tone(Q.n);document.querySelectorAll(".kb")[i].classList.add(ok?"ok":"no");if(!ok)document.querySelectorAll(".kb")[Q.o.indexOf(pcOf(Q.n))].classList.add("ok");ans(ok)}
+function sl(){document.querySelectorAll("#sl span").forEach((e,i)=>e.textContent=Q.a[i]?nm(Q.a[i].l,Q.a[i].a):"·")}
+const app=$("#app");
+document.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a,v=b.dataset.v;
+if(a=="nav"){V=v=="home"?v:+v;render()}
+else if(a=="scr")$("#games").scrollIntoView({behavior:"smooth"});
+else if(a=="t"){O.time=+v;setup()}
+else if(a=="o"){v=="alt"?O.alt=!O.alt:O.oct=O.oct==v?"small":v;setup()}
+else if(a=="start")begin();
+else if(a=="ans"&&!G.busy){const ok=b.dataset.k==kk(Q.n.pos%7,Q.n.acc);tone(Q.n);b.classList.add(ok?"ok":"no");if(!ok)document.querySelector(`[data-k="${kk(Q.n.pos%7,Q.n.acc)}"]`).classList.add("ok");document.getElementById("n0").classList.add(ok?"ok":"no");ans(ok)}
+else if(a=="kb")pick(+b.dataset.i);
+else if(a=="ml"&&!G.busy&&Q.a.length<4){Q.a.push({l:+v,a:Q.mod});Q.mod=0;["m1","m2"].forEach(i=>$("#"+i)&&$("#"+i).classList.remove("on"));sl();
+if(Q.a.length==4){const r=Q.a.map((x,i)=>x.l==Q.ns[i].pos%7&&x.a==Q.ns[i].acc),ok=r.every(Boolean);document.querySelectorAll("#sl span").forEach((s,i)=>s.classList.add(r[i]?"ok":"no"));if(!ok)$("#fx").textContent=Q.ns.map(n=>nm(n.pos%7,n.acc)).join(" – ");Q.ns.forEach((n,i)=>tone(n,i*.45));ans(ok)}}
+else if(a=="md"&&!G.busy){Q.mod=Q.mod==+v?0:+v;$("#m1").classList.toggle("on",Q.mod==1);$("#m2").classList.toggle("on",Q.mod==-1)}
+else if(a=="del"&&!G.busy){Q.a.pop();sl()}
+else if(a=="lis")Q.ns.forEach((n,i)=>tone(n,i*.55));
+else if(a=="yes"||a=="nop")ans(a=="yes")};
+app.ondragover=e=>{if(e.target.closest(".drop"))e.preventDefault()};
+app.ondragstart=e=>{const k=e.target.closest(".kb");if(k)e.dataTransfer.setData("text/plain",k.dataset.i)};
+app.ondrop=e=>{if(e.target.closest(".drop")){e.preventDefault();pick(+e.dataTransfer.getData("text/plain"))}};
+$("#lang").onclick=e=>{const l=e.target.dataset.l;if(!l)return;lang=l;try{localStorage.lang=l}catch(x){}render()};
+$("#vol").oninput=e=>vol=+e.target.value;
+render();
+</script></body></html>
